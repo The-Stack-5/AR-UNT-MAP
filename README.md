@@ -1,4 +1,4 @@
 # AR-UNT-MAP
 The repository for AR UNT MAP capstone project
 
-//Training Commit 2 - Vicky
+//Working on maps - Vicky
