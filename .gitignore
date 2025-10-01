@@ -1,0 +1,58 @@
+########################
+# Unity (inside UNT-AR-MAP)
+########################
+UNT-AR-MAP/[Ll]ibrary/
+UNT-AR-MAP/[Tt]emp/
+UNT-AR-MAP/[Oo]bj/
+UNT-AR-MAP/[Bb]uild*/
+UNT-AR-MAP/[Ll]ogs/
+UNT-AR-MAP/UserSettings/
+UNT-AR-MAP/MemoryCaptures/
+UNT-AR-MAP/Records/
+UNT-AR-MAP/.sysinfo
+
+# Cache & generated
+UNT-AR-MAP/[Aa]rtifactDB/
+UNT-AR-MAP/[Oo]bj/
+UNT-AR-MAP/[Bb]in/
+UNT-AR-MAP/[Oo]bjRel/
+*.pidb
+*.mdb
+*.pdb
+
+########################
+# IDE / editors
+########################
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Unity-generated project files (safe to ignore)
+*.csproj
+*.unityproj
+*.sln
+
+########################
+# OS
+########################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+########################
+# ExifTool backups (if you ever use it in this repo)
+########################
+*._original
+
+########################
+# Do NOT ignore these (keep them tracked)
+########################
+!UNT-AR-MAP/Assets/
+!UNT-AR-MAP/Packages/
+!UNT-AR-MAP/ProjectSettings/
+!UNT-AR-MAP/Packages/manifest.json
+!UNT-AR-MAP/Packages/packages-lock.json
