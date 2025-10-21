@@ -14,25 +14,28 @@ public class GPSHandler : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            return;
+            yield break; // <-- was 'return;' (illegal in iterator)
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        #if UNITY_EDITOR
-        Latitude = 33.253f;
+#if UNITY_EDITOR
+        // Mock location for Editor play mode
+        Latitude = 33.253f;     // Discovery Park mock
         Longitude = -97.152f;
         IsReady = true;
         yield break;
-        #endif
+#endif
 
         if (!Input.location.isEnabledByUser)
         {
             Debug.LogWarning("GPS not enabled on device");
-            yield break;
+            yield break; // <-- iterator-friendly exit
         }
 
+        // desiredAccuracyInMeters, updateDistanceInMeters
         Input.location.Start(1f, 0.1f);
+
         int maxWait = 20;
         while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
         {
