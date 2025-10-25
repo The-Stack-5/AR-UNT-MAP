@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "769707783725",
+    "project_id": "ar-map-9aeb8",
+    "storage_bucket": "ar-map-9aeb8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769707783725:android:67029f19ffe00515f1eaa4",
+        "android_client_info": {
+          "package_name": "com.thestack5.aruntmap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAevUdYiWYtWy2vIe1ec2AYGOBwzvhQEhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
