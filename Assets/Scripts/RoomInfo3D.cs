@@ -1,16 +1,23 @@
 using UnityEngine;
-using TMPro; // Optional: only if using TextMeshPro
+using TMPro;
 
 public class RoomInfo3D : MonoBehaviour
 {
-    [Header("Room Details")]
+    [Header("Room Identity")]
     public string roomName;
-    public string roomType;
-    public string roomSchedule;
+    public int floorNumber; // 1 or 2
+
+    [Header("Default Room Info")]
+    public string defaultRoomType;
+    public string defaultSchedule;
+
+    [Header("Student Custom Info")]
+    [TextArea(2,4)]
+    public string studentClassInfo;   // Students can enter their own info here
 
     [Header("Label Settings")]
-    public TextMeshPro roomLabel; // Assign a TextMeshPro object above the room
-    public float yOffset = 2f;    // How high above the room the label appears
+    public TextMeshPro roomLabel;
+    public float yOffset = 2f;
 
     private Camera mainCamera;
 
@@ -18,18 +25,15 @@ public class RoomInfo3D : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        // Hide label initially
         if (roomLabel != null)
+        {
             roomLabel.gameObject.SetActive(false);
-
-        // Position the label above the room
-        if (roomLabel != null)
             roomLabel.transform.localPosition = new Vector3(0, yOffset, 0);
+        }
     }
 
     void Update()
     {
-        // Make label always face the camera (billboard effect)
         if (roomLabel != null && roomLabel.gameObject.activeSelf && mainCamera != null)
         {
             roomLabel.transform.LookAt(
@@ -39,17 +43,34 @@ public class RoomInfo3D : MonoBehaviour
         }
     }
 
-    // Call this when the room is selected/clicked
     public void ShowInfo()
     {
-        if (roomLabel != null)
+        if (roomLabel == null) return;
+
+        string infoToDisplay;
+
+        if (!string.IsNullOrEmpty(studentClassInfo))
         {
-            roomLabel.text = $"{roomName}\n{roomType}\n{roomSchedule}";
-            roomLabel.gameObject.SetActive(true);
+            // If student entered their own class info
+            infoToDisplay = $"Room: {roomName}\nFloor: {floorNumber}\n\nYour Class:\n{studentClassInfo}";
         }
+        else
+        {
+            // Default room information
+            infoToDisplay = $"Room: {roomName}\nFloor: {floorNumber}\nType: {defaultRoomType}\nSchedule: {defaultSchedule}";
+        }
+
+        roomLabel.text = infoToDisplay;
+
+        // Color by floor
+        if (floorNumber == 1)
+            roomLabel.color = Color.cyan;      // Floor 1 = Blue
+        else if (floorNumber == 2)
+            roomLabel.color = Color.green;     // Floor 2 = Green
+
+        roomLabel.gameObject.SetActive(true);
     }
 
-    // Call this to hide the label
     public void HideInfo()
     {
         if (roomLabel != null)
