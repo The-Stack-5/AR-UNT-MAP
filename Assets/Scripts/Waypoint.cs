@@ -5,7 +5,7 @@ public class Waypoint : MonoBehaviour
 {
     public List<Waypoint> neighbors = new List<Waypoint>();
 
-   .. public bool isConnector = false;          
+   // public bool isConnector = false;          
     //public Waypoint connectedFloorNode = null; 
    // public int floor = 1;                       
 
@@ -36,3 +36,4 @@ public class Waypoint : MonoBehaviour
     }
 
 }
+
