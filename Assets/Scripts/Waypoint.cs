@@ -5,9 +5,9 @@ public class Waypoint : MonoBehaviour
 {
     public List<Waypoint> neighbors = new List<Waypoint>();
 
-    public bool isConnector = false;           // True if this node connects floors
-    public Waypoint connectedFloorNode = null; // Corresponding node on the other floor
-    public int floor = 1;                       // 1 = Floor1, 2 = Floor2
+   .. public bool isConnector = false;          
+    //public Waypoint connectedFloorNode = null; 
+   // public int floor = 1;                       
 
     public float gizmoRadius = 0.18f;
     public Color normalColor = Color.cyan;
@@ -34,4 +34,5 @@ public class Waypoint : MonoBehaviour
             }
         }
     }
+
 }
