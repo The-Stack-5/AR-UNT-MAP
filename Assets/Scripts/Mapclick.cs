@@ -4,7 +4,7 @@ public class MapClick : MonoBehaviour
     public Camera mapCamera;
     public GameObject YouAreHere;
     public Collider2D[] Boundries;
-    private bool isFirstClick = true; // ← only this one line added
+    private bool isFirstClick = true; 
     void Update()
     {
         if (mapCamera == null || YouAreHere == null || Boundries == null || Boundries.Length == 0)
@@ -28,7 +28,7 @@ public class MapClick : MonoBehaviour
                 else
                 {
                     Debug.Log("Second position selected at " + clickPos);
-                    // Optional: isFirstClick = true; ← uncomment if you want it to loop forever
+                    
                 }
                 MapNavigator nav = GetComponent<MapNavigator>();
                 if (nav != null)
@@ -39,4 +39,5 @@ public class MapClick : MonoBehaviour
             }
         }
     }
+
 }
