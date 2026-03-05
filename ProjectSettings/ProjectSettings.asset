@@ -44,8 +44,13 @@ PlayerSettings:
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
   defaultScreenHeight: 1080
+<<<<<<< HEAD
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
+=======
+  defaultScreenWidthWeb: 1920
+  defaultScreenHeightWeb: 1080
+>>>>>>> origin/Testing-DEE
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
@@ -80,7 +85,11 @@ PlayerSettings:
   androidPredictiveBackSupport: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
+<<<<<<< HEAD
   runInBackground: 0
+=======
+  runInBackground: 1
+>>>>>>> origin/Testing-DEE
   captureSingleScreen: 0
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
@@ -780,7 +789,11 @@ PlayerSettings:
   webGLTemplate: APPLICATION:Default
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
+<<<<<<< HEAD
   webGLCompressionFormat: 0
+=======
+  webGLCompressionFormat: 2
+>>>>>>> origin/Testing-DEE
   webGLWasmArithmeticExceptions: 0
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
@@ -825,7 +838,11 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: DPMapp
+<<<<<<< HEAD
   metroPackageVersion: 
+=======
+  metroPackageVersion: 1.0.0.0
+>>>>>>> origin/Testing-DEE
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -833,7 +850,11 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: DPMapp
   wsaImages: {}
+<<<<<<< HEAD
   metroTileShortName: 
+=======
+  metroTileShortName: DPMapp
+>>>>>>> origin/Testing-DEE
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
