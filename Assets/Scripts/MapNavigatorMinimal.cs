@@ -7,38 +7,26 @@ public class MapNavigator : MonoBehaviour
 {
     public Transform YouAreHere;
     public float walkSpeed = 0.6f;
-<<<<<<< HEAD
 
-    private Vector3 startClick;
-    private Vector3 endClick;
-
-    private bool hasStart;
-    private bool hasEnd;
-    private bool waitingForEnd;
-
-    private List<Waypoint> currentPath = new List<Waypoint>();
-    private List<Vector3> pathPoints = new List<Vector3>();
-
-=======
     public PolygonCollider2D[] Boundaries;
+
     private Vector3 startClick;
     private Vector3 endClick;
+
     private bool hasStart;
     private bool hasEnd;
     private bool waitingForEnd;
+
     private List<Waypoint> currentPath = new List<Waypoint>();
     private List<Vector3> pathPoints = new List<Vector3>();
->>>>>>> origin/Testing-DEE
+
     private LineRenderer line;
     private Coroutine walkRoutine;
 
     void Awake()
     {
         line = GetComponent<LineRenderer>();
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Testing-DEE
         line.material = new Material(Shader.Find("Sprites/Default"));
         line.startWidth = 0.15f;
         line.endWidth = 0.15f;
@@ -66,11 +54,7 @@ public class MapNavigator : MonoBehaviour
     [ContextMenu("Find Path")]
     public void ComputePath()
     {
-<<<<<<< HEAD
-        if (!hasStart || !hasEnd)
-=======
         if (!hasStart || !hasEnd || Boundaries == null || Boundaries.Length == 0)
->>>>>>> origin/Testing-DEE
             return;
 
         currentPath.Clear();
@@ -80,26 +64,20 @@ public class MapNavigator : MonoBehaviour
         if (walkRoutine != null)
             StopCoroutine(walkRoutine);
 
-<<<<<<< HEAD
-        Waypoint startNode = GetClosestWaypoint(startClick);
-        Waypoint endNode = GetClosestWaypoint(endClick);
-=======
-        // Only proceed if start/end clicks are inside allowed boundaries
         if (!IsInsideBoundaries(startClick) || !IsInsideBoundaries(endClick))
         {
             Debug.LogWarning("Start or end click is outside boundaries");
             return;
         }
 
-        // Create temporary nodes at click positions
-        Waypoint startNode = CreateTempWaypoint(startClick);
-        Waypoint endNode = CreateTempWaypoint(endClick);
->>>>>>> origin/Testing-DEE
+        Waypoint startNode = GetClosestWaypoint(startClick);
+        Waypoint endNode = GetClosestWaypoint(endClick);
 
         if (startNode == null || endNode == null)
             return;
 
         currentPath = BFS(startNode, endNode);
+
         BuildPathPoints();
         DrawPath();
 
@@ -107,23 +85,6 @@ public class MapNavigator : MonoBehaviour
             walkRoutine = StartCoroutine(WalkPath());
     }
 
-<<<<<<< HEAD
-    private Waypoint GetClosestWaypoint(Vector3 pos)
-    {
-        Waypoint closest = null;
-        float best = float.MaxValue;
-
-        foreach (Waypoint wp in FindObjectsOfType<Waypoint>())
-        {
-            float d = Vector3.Distance(pos, wp.transform.position);
-            if (d < best)
-            {
-                best = d;
-                closest = wp;
-            }
-        }
-        return closest;
-=======
     private bool IsInsideBoundaries(Vector3 pos)
     {
         foreach (PolygonCollider2D poly in Boundaries)
@@ -134,40 +95,26 @@ public class MapNavigator : MonoBehaviour
         return false;
     }
 
-    private Waypoint CreateTempWaypoint(Vector3 clickPos)
+    private Waypoint GetClosestWaypoint(Vector3 pos)
     {
-        GameObject tempGO = new GameObject("TempWaypoint");
-        tempGO.transform.position = clickPos;
-        Waypoint tempWP = tempGO.AddComponent<Waypoint>();
-        tempWP.neighbors = new List<Waypoint>();
+        Waypoint closest = null;
+        float best = float.MaxValue;
 
         foreach (Waypoint wp in FindObjectsOfType<Waypoint>())
         {
-            if (wp == null || !IsInsideBoundaries(wp.transform.position))
+            if (!IsInsideBoundaries(wp.transform.position))
                 continue;
 
-            // Only connect if line between nodes stays inside boundary
-            if (IsLineInsideBoundaries(clickPos, wp.transform.position))
+            float d = Vector3.Distance(pos, wp.transform.position);
+
+            if (d < best)
             {
-                tempWP.neighbors.Add(wp);
-                wp.neighbors.Add(tempWP);
+                best = d;
+                closest = wp;
             }
         }
-        return tempWP;
-    }
 
-    // Check that line between two points stays inside any boundary
-    private bool IsLineInsideBoundaries(Vector3 a, Vector3 b)
-    {
-        int steps = 10;
-        for (int i = 0; i <= steps; i++)
-        {
-            Vector3 point = Vector3.Lerp(a, b, i / (float)steps);
-            if (!IsInsideBoundaries(point))
-                return false;
-        }
-        return true;
->>>>>>> origin/Testing-DEE
+        return closest;
     }
 
     private List<Waypoint> BFS(Waypoint start, Waypoint goal)
@@ -184,28 +131,19 @@ public class MapNavigator : MonoBehaviour
         {
             Waypoint current = queue.Dequeue();
 
-<<<<<<< HEAD
             if (current == goal)
                 break;
 
-            foreach (Waypoint neighbor in current.neighbors)
-=======
-            if (current == goal) break;
-
-            // Sort neighbors by how close they are to the goal (helps prefer straighter/forward paths)
             List<Waypoint> sortedNeighbors = new List<Waypoint>(current.neighbors);
-            if (sortedNeighbors.Count > 1)
+
+            sortedNeighbors.Sort((a, b) =>
             {
-                sortedNeighbors.Sort((a, b) =>
-                {
-                    float distA = Vector3.Distance(a.transform.position, goal.transform.position);
-                    float distB = Vector3.Distance(b.transform.position, goal.transform.position);
-                    return distA.CompareTo(distB); // smaller remaining distance = higher priority
-                });
-            }
+                float distA = Vector3.Distance(a.transform.position, goal.transform.position);
+                float distB = Vector3.Distance(b.transform.position, goal.transform.position);
+                return distA.CompareTo(distB);
+            });
 
             foreach (Waypoint neighbor in sortedNeighbors)
->>>>>>> origin/Testing-DEE
             {
                 if (neighbor == null || visited.Contains(neighbor))
                     continue;
@@ -221,57 +159,41 @@ public class MapNavigator : MonoBehaviour
 
         List<Waypoint> path = new List<Waypoint>();
         Waypoint step = goal;
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Testing-DEE
         while (step != null)
         {
             path.Insert(0, step);
             step = cameFrom[step];
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Testing-DEE
         return path;
     }
 
     private void BuildPathPoints()
     {
-<<<<<<< HEAD
+        pathPoints.Clear();
+
         pathPoints.Add(startClick);
 
-        foreach (Waypoint wp in currentPath)
-            pathPoints.Add(wp.transform.position);
-
-        pathPoints.Add(endClick);
-=======
-        pathPoints.Clear();
         foreach (Waypoint wp in currentPath)
         {
             if (IsInsideBoundaries(wp.transform.position))
                 pathPoints.Add(wp.transform.position);
         }
->>>>>>> origin/Testing-DEE
+
+        pathPoints.Add(endClick);
     }
 
     private void DrawPath()
     {
         if (pathPoints.Count == 0)
-<<<<<<< HEAD
-            return;
-
-        line.positionCount = pathPoints.Count;
-
-=======
         {
             line.positionCount = 0;
             return;
         }
 
         line.positionCount = pathPoints.Count;
->>>>>>> origin/Testing-DEE
+
         for (int i = 0; i < pathPoints.Count; i++)
             line.SetPosition(i, pathPoints[i]);
     }
@@ -284,10 +206,7 @@ public class MapNavigator : MonoBehaviour
         {
             Vector3 start = YouAreHere.position;
             Vector3 target = pathPoints[i];
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Testing-DEE
             float dist = Vector3.Distance(start, target);
             float t = 0f;
 
@@ -301,8 +220,4 @@ public class MapNavigator : MonoBehaviour
             YouAreHere.position = target;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/Testing-DEE

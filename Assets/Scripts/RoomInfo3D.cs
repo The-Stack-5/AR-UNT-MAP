@@ -5,19 +5,22 @@ public class RoomInfo3D : MonoBehaviour
 {
     [Header("Room Identity")]
     public string roomName;
-    public int floorNumber; // 1 or 2
+    public int floorNumber = 1;
 
     [Header("Default Room Info")]
     public string defaultRoomType;
     public string defaultSchedule;
 
     [Header("Student Custom Info")]
-    [TextArea(2,4)]
-    public string studentClassInfo;   // Students can enter their own info here
+    [TextArea(2, 4)]
+    public string studentClassInfo;
 
     [Header("Label Settings")]
     public TextMeshPro roomLabel;
     public float yOffset = 2f;
+
+    [Header("Navigation")]
+    public Waypoint roomWaypoint; // Assign nearest waypoint
 
     private Camera mainCamera;
 
@@ -47,27 +50,12 @@ public class RoomInfo3D : MonoBehaviour
     {
         if (roomLabel == null) return;
 
-        string infoToDisplay;
-
-        if (!string.IsNullOrEmpty(studentClassInfo))
-        {
-            // If student entered their own class info
-            infoToDisplay = $"Room: {roomName}\nFloor: {floorNumber}\n\nYour Class:\n{studentClassInfo}";
-        }
-        else
-        {
-            // Default room information
-            infoToDisplay = $"Room: {roomName}\nFloor: {floorNumber}\nType: {defaultRoomType}\nSchedule: {defaultSchedule}";
-        }
+        string infoToDisplay = !string.IsNullOrEmpty(studentClassInfo)
+            ? $"Room: {roomName}\nFloor: {floorNumber}\n\nYour Class:\n{studentClassInfo}"
+            : $"Room: {roomName}\nFloor: {floorNumber}\nType: {defaultRoomType}\nSchedule: {defaultSchedule}";
 
         roomLabel.text = infoToDisplay;
-
-        // Color by floor
-        if (floorNumber == 1)
-            roomLabel.color = Color.cyan;      // Floor 1 = Blue
-        else if (floorNumber == 2)
-            roomLabel.color = Color.green;     // Floor 2 = Green
-
+        roomLabel.color = floorNumber == 1 ? Color.cyan : Color.green;
         roomLabel.gameObject.SetActive(true);
     }
 
